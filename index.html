@@ -1262,10 +1262,18 @@
                 const itemTotal = item.price * item.quantity;
                 totalAmount += itemTotal;
 
+                // Construct an absolute URL for the image if it's hosted online
+                let absoluteImageUrl = item.image;
+                if (!absoluteImageUrl.startsWith('http')) {
+                    const path = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
+                    absoluteImageUrl = `${path}/${item.image}`;
+                }
+
                 message += `*Product:* ${item.name}%0A`;
                 message += `*Code:* ${item.id}%0A`;
                 message += `*Quantity:* ${item.quantity}%0A`;
                 message += `*Price:* ₹${item.price} (Total: ₹${itemTotal})%0A`;
+                message += `*Image:* ${absoluteImageUrl}%0A`;
                 message += `%0A`; // Space between items
             });
 
